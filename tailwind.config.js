@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-import elementTailwindConfig from './packages/air-element/tailwind.config';
+import elementTailwindConfig from '@air-ui/theme/tailwind.config';
 
 module.exports = {
     ...elementTailwindConfig,
-    content: ['./packages/**/!(node_modules)/*.{vue,js,ts,jsx,tsx}']
+    content: ['./block/**/!(node_modules)/*.{vue,js,ts,jsx,tsx}']
 };

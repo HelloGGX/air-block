@@ -14,11 +14,9 @@
     ],
     "scripts": {
         "setup": "rm -rf **/node_modules **/dist ./pnpm-lock.yaml && pnpm install",
-        "build": "cross-env NODE_ENV=production pnpm run build:check && pnpm run build:packages",
+        "build": "cross-env NODE_ENV=production pnpm run build:check && pnpm run build:package",
         "build:check": "pnpm run format:check && pnpm run security:check",
-        "build:packages": "pnpm run build:air-element && pnpm run build:block",
-        "build:air-element": "pnpm --filter air-element build",
-        "build:block": "pnpm --filter block build",
+        "build:package": "node ./scripts/prebuild.mjs && rollup -c && node ./scripts/postbuild.mjs",
         "story": "storybook dev -p 6006",
         "add-block": "node ./scripts/add-block.mjs",
         "build-story": "storybook build",
@@ -28,7 +26,23 @@
         "lint": "eslint --ext \".vue,.js,.mjs,.ts\" --ignore-path .gitignore . --cache",
         "lint:fix": "eslint --fix --ext \".vue,.js,.mjs,.ts\" --ignore-path .gitignore ."
     },
+    "peerDependencies": {
+        "@air-ui/air-element": "^0.0.0",
+        "@air-ui/theme": "^0.0.0",
+        "vue": "^3.2.0"
+    },
+    "dependencies": {
+        "@element-plus/icons-vue": "^2.3.1"
+    },
     "devDependencies": {
+        "@babel/preset-env": "^7.25.4",
+        "@babel/preset-typescript": "^7.24.7",
+        "@rollup/plugin-alias": "^5.1.0",
+        "@rollup/plugin-babel": "^6.0.4",
+        "@rollup/plugin-node-resolve": "^15.2.3",
+        "@rollup/plugin-terser": "^0.4.4",
+        "rollup-plugin-postcss": "^4.0.2",
+        "rollup-plugin-vue": "^6.0.0",
         "@chromatic-com/storybook": "^1.6.1",
         "@eslint/js": "^9.8.0",
         "@storybook/addon-essentials": "^8.2.5",
@@ -67,11 +81,14 @@
         "node": ">=20.0.0"
     },
     "workspaces": [
-        "packages/block",
-        "packages/air-element",
-        "packages/theme"
+        "block/src"
     ],
-    "dependencies": {
-        "vue": "^3.2.31"
+    "exports": {
+        "./aircard": "./block/src/aircard/AirCard.vue",
+        "./airflightinfo": "./block/src/airflightinfo/Airflightinfo.vue",
+        "./airheader": "./block/src/airheader/Airheader.vue",
+        "./airlayout": "./block/src/airlayout/Airlayout.vue",
+        "./airseat": "./block/src/airseat/AirSeat.vue",
+        "./*": "./*"
     }
 }

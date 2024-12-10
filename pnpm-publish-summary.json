@@ -1,15 +1,7 @@
 {
     "publishedPackages": [
         {
-            "name": "@air-ui/air-element",
-            "version": "0.0.0"
-        },
-        {
-            "name": "@air-ui/block",
-            "version": "0.0.0"
-        },
-        {
-            "name": "@air-ui/theme",
+            "name": "@air-pam/block",
             "version": "0.0.0"
         }
     ]
