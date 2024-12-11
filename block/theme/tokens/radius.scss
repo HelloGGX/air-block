@@ -1,0 +1,14 @@
+// 间距系统
+$radius: (
+    'none': 0rem,
+    'sm': 0.25rem,
+    'base': 0.5rem,
+    'lg': 0.75rem,
+    'full': 625rem
+);
+
+:root {
+    @each $size, $value in $radius {
+        --air-radius-#{$size}: #{$value};
+    }
+}

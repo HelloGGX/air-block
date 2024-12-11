@@ -14,7 +14,7 @@
     ],
     "scripts": {
         "setup": "rm -rf **/node_modules **/dist ./pnpm-lock.yaml && pnpm install",
-        "build": "cross-env NODE_ENV=production pnpm run build:check && pnpm run build:package",
+        "build": "cross-env NODE_ENV=production INPUT_DIR=block/ OUTPUT_DIR=dist/  pnpm run build:package",
         "build:check": "pnpm run format:check && pnpm run security:check",
         "build:package": "node ./scripts/prebuild.mjs && rollup -c && node ./scripts/postbuild.mjs",
         "story": "storybook dev -p 6006",
@@ -81,14 +81,14 @@
         "node": ">=20.0.0"
     },
     "workspaces": [
-        "block/src"
+        "block"
     ],
     "exports": {
-        "./aircard": "./block/src/aircard/AirCard.vue",
-        "./airflightinfo": "./block/src/airflightinfo/Airflightinfo.vue",
-        "./airheader": "./block/src/airheader/Airheader.vue",
-        "./airlayout": "./block/src/airlayout/Airlayout.vue",
-        "./airseat": "./block/src/airseat/AirSeat.vue",
+        "./aircard": "./block/aircard/AirCard.vue",
+        "./airflightinfo": "./block/airflightinfo/Airflightinfo.vue",
+        "./airheader": "./block/airheader/Airheader.vue",
+        "./airlayout": "./block/airlayout/Airlayout.vue",
+        "./airseat": "./block/airseat/AirSeat.vue",
         "./*": "./*"
     }
 }

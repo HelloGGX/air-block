@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
-import { clearPackageJson, renameDTSFile, resolvePath, copyDependencies } from '../../../scripts/build-helper.mjs';
+import { clearPackageJson, renameDTSFile, resolvePath, copyDependencies } from './build-helper.mjs';
 
 const { __dirname, __workspace, INPUT_DIR, OUTPUT_DIR } = resolvePath(import.meta.url);
 

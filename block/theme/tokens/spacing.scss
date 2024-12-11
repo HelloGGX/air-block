@@ -1,0 +1,16 @@
+// 间距系统
+$spacing-scale: (
+    '4': 0.25rem,
+    '8': 0.5rem,
+    '12': 0.75rem,
+    '16': 1rem,
+    '24': 1.5rem,
+    '40': 2.5rem,
+    '80': 5rem
+);
+
+:root {
+    @each $size, $value in $spacing-scale {
+        --air-spacing-#{$size}: #{$value};
+    }
+}

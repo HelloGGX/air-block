@@ -7,9 +7,9 @@
         "jsx": "preserve",
         "baseUrl": ".",
         "paths": {
-            "block/*": ["./block/src/*"]
+            "block/*": ["./block/*"]
         }
     },
-    "include": ["**/*.ts", "block/src/*", "**/*.vue"],
+    "include": ["**/*.ts", "block/*", "**/*.vue"],
     "exclude": ["node_modules", "dist"]
 }

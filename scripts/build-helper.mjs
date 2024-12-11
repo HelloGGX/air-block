@@ -6,6 +6,7 @@ export function resolvePath(metaUrl) {
     const __dirname = path.dirname(fileURLToPath(metaUrl || import.meta.url));
     const __workspace = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../');
     const { INPUT_DIR, OUTPUT_DIR } = process.env;
+    console.log('****', INPUT_DIR);
     const INPUT_PATH = path.resolve(__dirname, process.env.INPUT_DIR);
     const OUTPUT_PATH = path.resolve(__dirname, process.env.OUTPUT_DIR);
 
