@@ -3,8 +3,8 @@
         data-testid="card-box"
         v-show="isVisible"
         :class="[
-            'rounded-lg p-3 flex justify-between items-center transition-colors duration-300 ease-in-out',
-            isSelected ? 'bg-primary-500 text-white-800' : 'bg-white border border-gray-300 '
+            'rounded-lg p-3 flex justify-between items-center transition-colors duration-300 ease-in-out cursor-pointer',
+            isSelected ? 'bg-blue-700 text-white' : 'bg-white border border-gray-300 '
         ]"
         :style="{ width, height }"
         @click="selectPsg"

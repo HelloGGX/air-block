@@ -265,5 +265,4 @@ function autoImportAirElementStyles() {
 addFile();
 addLibrary();
 
-console.log(ENTRY.entries);
 export default ENTRY.entries;

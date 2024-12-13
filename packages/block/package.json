@@ -8,8 +8,6 @@
         "build:postbuild": "node ./scripts/postbuild.mjs"
     },
     "peerDependencies": {
-        "@air-ui/air-element": "^0.0.0",
-        "@air-ui/theme": "^0.0.0",
         "vue": "^3.2.0"
     },
     "keywords": [],
@@ -27,6 +25,7 @@
         "postcss": "^8.4.40",
         "rollup-plugin-postcss": "^4.0.2",
         "rollup-plugin-vue": "^6.0.0",
+        "sass": "^1.83.0",
         "tailwindcss": "^3.4.6"
     },
     "dependencies": {
@@ -42,10 +41,6 @@
     },
     "exports": {
         "./aircard": "./src/aircard/AirCard.vue",
-        "./airflightinfo": "./src/airflightinfo/Airflightinfo.vue",
-        "./airheader": "./src/airheader/Airheader.vue",
-        "./airlayout": "./src/airlayout/Airlayout.vue",
-        "./airseat": "./src/airseat/AirSeat.vue",
         "./*": "./*"
     }
 }

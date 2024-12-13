@@ -1,6 +1,0 @@
-{
-    "main": "./Airlayout.vue",
-    "types": "./Airlayout.d.ts",
-    "module": "./Airlayout.vue",
-    "sideEffects": ["*.vue"]
-}

@@ -1,7 +1,7 @@
 /** @type { import('@storybook/vue3-vite').StorybookConfig } */
 
 const config = {
-    stories: ['../block/**/*.stories.@(js|jsx|ts|tsx)'],
+    stories: ['../packages/**/*.stories.@(js|jsx|ts|tsx)'],
     addons: [
         '@storybook/addon-docs',
         '@storybook/addon-onboarding',
