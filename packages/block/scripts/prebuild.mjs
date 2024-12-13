@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
-import { removeBuild, resolvePath, updatePackageJson } from './build-helper.mjs';
+import { removeBuild, resolvePath, updatePackageJson } from '../../../scripts/build-helper.mjs';
 
 removeBuild(import.meta.url);
 

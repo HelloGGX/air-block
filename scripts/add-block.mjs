@@ -4,8 +4,8 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const COMPONENTS_DIR = path.resolve(__dirname, '../block');
-const AIRBLOCKS_PATH = path.resolve(__dirname, '../block/airblocks.js');
+const COMPONENTS_DIR = path.resolve(__dirname, '../packages/block/src');
+const AIRBLOCKS_PATH = path.resolve(__dirname, '../packages/block/src/airblocks.js');
 
 const componentName = process.argv[2]?.charAt(0).toUpperCase() + process.argv[2]?.slice(1);
 

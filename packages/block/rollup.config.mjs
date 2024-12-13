@@ -29,7 +29,7 @@ const EXTERNALS = [...GLOBAL_EXTERNALS, ...INLINE_EXTERNALS];
 const ALIAS_ENTRIES = [
     {
         find: /^block\/(.*)$/,
-        replacement: path.resolve(__dirname, './$1'),
+        replacement: path.resolve(__dirname, './src/$1'),
         customResolver(source, importer) {
             const basedir = path.dirname(importer);
             const folderPath = path.resolve(basedir, source);
@@ -265,5 +265,5 @@ function autoImportAirElementStyles() {
 addFile();
 addLibrary();
 
-// console.log(ENTRY.entries);
+console.log(ENTRY.entries);
 export default ENTRY.entries;

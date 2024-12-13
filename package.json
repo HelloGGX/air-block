@@ -14,9 +14,10 @@
     ],
     "scripts": {
         "setup": "rm -rf **/node_modules **/dist ./pnpm-lock.yaml && pnpm install",
-        "build": "cross-env NODE_ENV=production INPUT_DIR=block/ OUTPUT_DIR=dist/  pnpm run build:package",
+        "build": "cross-env NODE_ENV=production pnpm run build:check && pnpm run build:packages",
         "build:check": "pnpm run format:check && pnpm run security:check",
-        "build:package": "node ./scripts/prebuild.mjs && rollup -c && node ./scripts/postbuild.mjs",
+        "build:packages": "pnpm run build:block",
+        "build:block": "pnpm --filter block build",
         "story": "storybook dev -p 6006",
         "add-block": "node ./scripts/add-block.mjs",
         "build-story": "storybook build",
@@ -26,23 +27,7 @@
         "lint": "eslint --ext \".vue,.js,.mjs,.ts\" --ignore-path .gitignore . --cache",
         "lint:fix": "eslint --fix --ext \".vue,.js,.mjs,.ts\" --ignore-path .gitignore ."
     },
-    "peerDependencies": {
-        "@air-ui/air-element": "^0.0.0",
-        "@air-ui/theme": "^0.0.0",
-        "vue": "^3.2.0"
-    },
-    "dependencies": {
-        "@element-plus/icons-vue": "^2.3.1"
-    },
     "devDependencies": {
-        "@babel/preset-env": "^7.25.4",
-        "@babel/preset-typescript": "^7.24.7",
-        "@rollup/plugin-alias": "^5.1.0",
-        "@rollup/plugin-babel": "^6.0.4",
-        "@rollup/plugin-node-resolve": "^15.2.3",
-        "@rollup/plugin-terser": "^0.4.4",
-        "rollup-plugin-postcss": "^4.0.2",
-        "rollup-plugin-vue": "^6.0.0",
         "@chromatic-com/storybook": "^1.6.1",
         "@eslint/js": "^9.8.0",
         "@storybook/addon-essentials": "^8.2.5",
@@ -81,14 +66,11 @@
         "node": ">=20.0.0"
     },
     "workspaces": [
-        "block"
+        "packages/block",
+        "packages/air-element",
+        "packages/theme"
     ],
-    "exports": {
-        "./aircard": "./block/aircard/AirCard.vue",
-        "./airflightinfo": "./block/airflightinfo/Airflightinfo.vue",
-        "./airheader": "./block/airheader/Airheader.vue",
-        "./airlayout": "./block/airlayout/Airlayout.vue",
-        "./airseat": "./block/airseat/AirSeat.vue",
-        "./*": "./*"
+    "dependencies": {
+        "vue": "^3.2.31"
     }
 }

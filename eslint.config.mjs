@@ -10,6 +10,6 @@ export default [
     ...tseslint.configs.recommended,
     ...pluginVue.configs['flat/essential'],
     { files: ['**/*.vue'], languageOptions: { parserOptions: { parser: tseslint.parser } } },
-    { ignores: ['node_modules/', 'block/dist/'] },
+    { ignores: ['node_modules/', 'packages/**/dist/'] },
     { node: true }
 ];
