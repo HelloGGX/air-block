@@ -1,3 +1,4 @@
 packages:
     - 'packages/block'
     - 'packages/theme'
+    - 'packages/cli'

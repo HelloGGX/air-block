@@ -3,6 +3,10 @@
     "version": "0.0.0",
     "author": "玄子",
     "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/HelloGGX/air-ui.git"
+    },
     "license": "MIT",
     "keywords": [
         "air-ui",
@@ -17,7 +21,7 @@
         "build:block": "pnpm --filter block build",
         "story": "storybook dev -p 6006",
         "build:story": "storybook build",
-        "security:check": "pnpm audit --prod --audit-level low",
+        "security:check": "pnpm audit --prod --audit-level high",
         "format": "prettier --write \"**/*.{vue,js,mjs,ts,d.ts}\" --cache",
         "format:check": "prettier --check \"**/*.{vue,js,mjs,ts,d.ts}\"",
         "lint": "eslint --cache",
@@ -38,6 +42,7 @@
         "@storybook/vue3-vite": "^8.5.1",
         "@tailwindcss/vite": "^4.0.4",
         "@types/node": "^20.17.16",
+        "@types/semver": "^7.5.8",
         "@vitejs/plugin-vue": "^5.2.1",
         "@vitejs/plugin-vue-jsx": "^4.1.1",
         "@vitest/browser": "^3.0.4",
@@ -49,8 +54,10 @@
         "glob": "^11.0.1",
         "globals": "^15.14.0",
         "happy-dom": "^17.1.0",
+        "inquirer": "^12.4.2",
         "playwright": "^1.50.0",
         "prettier": "3.3.3",
+        "semver": "^7.7.1",
         "storybook": "^8.5.1",
         "tailwindcss": "^4.0.4",
         "tsx": "^4.19.2",
@@ -67,7 +74,8 @@
     },
     "workspaces": [
         "packages/block",
-        "packages/theme"
+        "packages/theme",
+        "packages/cli"
     ],
     "dependencies": {
         "vue": "^3.5.13"

@@ -7,6 +7,10 @@
         {
             "name": "@air-ui/theme",
             "version": "0.0.0"
+        },
+        {
+            "name": "@air-ui/cli",
+            "version": "0.0.0"
         }
     ]
 }
