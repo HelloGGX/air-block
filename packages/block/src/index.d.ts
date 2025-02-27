@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
     AllowedComponentProps,
     ComponentCustomProps,
     MethodOptions,
     ObjectEmitsOptions,
     SlotsType,
-    VNode,
     VNodeProps,
     DefineComponent as _DefineComponent
 } from 'vue';

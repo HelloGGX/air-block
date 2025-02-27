@@ -14,12 +14,12 @@ import { fileURLToPath } from 'url';
  * - INPUT_PATH: 输入目录的绝对路径。
  * - OUTPUT_PATH: 输出目录的绝对路径。
  */
-export function resolvePath(metaUrl) {
+export function resolvePath(metaUrl?: string) {
     const __dirname = path.dirname(fileURLToPath(metaUrl || import.meta.url));
     const __workspace = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../');
     const { INPUT_DIR, OUTPUT_DIR } = process.env;
-    const INPUT_PATH = path.resolve(__dirname, process.env.INPUT_DIR);
-    const OUTPUT_PATH = path.resolve(__dirname, process.env.OUTPUT_DIR);
+    const INPUT_PATH = path.resolve(__dirname, INPUT_DIR || '');
+    const OUTPUT_PATH = path.resolve(__dirname, OUTPUT_DIR || '');
 
     return {
         __dirname,
@@ -36,9 +36,11 @@ export function resolvePath(metaUrl) {
  *
  * @param {string} metaUrl - 当前模块的元 URL，用于解析输出目录。
  */
-export function removeBuild(metaUrl) {
+export function removeBuild(metaUrl: string | undefined) {
     const { OUTPUT_DIR } = resolvePath(metaUrl);
-    fs.remove(OUTPUT_DIR);
+    if (OUTPUT_DIR) {
+        fs.remove(OUTPUT_DIR);
+    }
 }
 
 /**
@@ -48,7 +50,7 @@ export function removeBuild(metaUrl) {
  * 该函数会将工作空间的 package.json 中的版本、作者、主页、许可证、仓库和引擎信息
  * 更新到指定的本地 package.json 文件中。
  */
-export function updatePackageJson(localPackageJson) {
+export function updatePackageJson(localPackageJson: fs.PathOrFileDescriptor) {
     const { __workspace } = resolvePath();
     const packageJson = JSON.parse(
         fs.readFileSync(path.resolve(__workspace, './package.json'), { encoding: 'utf8', flag: 'r' })
@@ -72,7 +74,7 @@ export function updatePackageJson(localPackageJson) {
  * @param {string} localPackageJson - 本地 package.json 文件的路径。
  * 该函数会删除 scripts、devDependencies 和 publishConfig 中的 directory 和 linkDirectory 字段。
  */
-export function clearPackageJson(localPackageJson) {
+export function clearPackageJson(localPackageJson: fs.PathOrFileDescriptor) {
     const pkg = JSON.parse(fs.readFileSync(localPackageJson, { encoding: 'utf8', flag: 'r' }));
 
     delete pkg?.scripts;
@@ -94,7 +96,7 @@ export function clearPackageJson(localPackageJson) {
  * 仅复制以 .d.ts、.vue 或 .scss 结尾的文件。
  * 如果指定了子文件夹，则只复制该子文件夹中的文件。
  */
-export function copyDependencies(inFolder, outFolder, subFolder) {
+export function copyDependencies(inFolder: string, outFolder: string, subFolder?: string) {
     fs.readdirSync(inFolder, { withFileTypes: true }).forEach((entry) => {
         const fileName = entry.name;
         const sourcePath = path.join(inFolder, fileName);
@@ -125,7 +127,7 @@ export function copyDependencies(inFolder, outFolder, subFolder) {
  * @param {string} newName - 新的文件名（不带扩展名）。
  * 该函数会递归遍历目录中的所有文件，找到 .d.ts 文件并重命名为新的文件名。
  */
-export async function renameDTSFile(dir, newName) {
+export async function renameDTSFile(dir: string, newName: unknown) {
     const entries = await fs.readdir(dir, { withFileTypes: true });
 
     for (const entry of entries) {
@@ -148,7 +150,10 @@ export async function renameDTSFile(dir, newName) {
  * @param {string} packagePath - 包的路径，用于读取版本信息。
  * 该函数会读取指定包的版本并更新到 pkgJson 的 peerDependencies 中。
  */
-export async function updatePeerDependency(pkgJson, packagePath) {
+export async function updatePeerDependency(
+    pkgJson: { peerDependencies: { [x: string]: string } },
+    packagePath: fs.PathOrFileDescriptor
+) {
     try {
         const packageData = JSON.parse(fs.readFileSync(packagePath, { encoding: 'utf8', flag: 'r' }));
         const { name: packageName, version } = packageData;
@@ -157,7 +162,6 @@ export async function updatePeerDependency(pkgJson, packagePath) {
             pkgJson.peerDependencies[packageName] = `^${version}`;
         }
     } catch (error) {
-        // 如果路径不存在或读取失败，跳过更新
-        console.warn(`Skipping update for peer dependency: ${error.message}`);
+        console.warn(`Skipping update for peer dependency: ${error instanceof Error ? error.message : String(error)}`);
     }
 }

@@ -1,0 +1,17 @@
+[data-theme='christmas'] {
+    --color-primary-800: #7d2c2c;
+    /* 深红色 */
+    --color-primary-700: #9a3636;
+    --color-primary-600: #b74242;
+    --color-primary-500: #d35151;
+    /* 主红色 */
+    --color-primary-400: #e36666;
+    --color-primary-300: #f28585;
+    --color-primary-200: #f9b3b3;
+    --color-primary-100: #fddddd;
+    /* 浅红色 */
+
+    .air-btn--primary {
+        background-image: url('theme/festival/christmas/btn-tree.svg');
+    }
+}

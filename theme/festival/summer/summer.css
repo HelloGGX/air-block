@@ -1,0 +1,14 @@
+[data-theme='summer'] {
+    --color-primary-800: #257e0f;
+    --color-primary-700: #36971e;
+    --color-primary-600: #51ab3b;
+    --color-primary-500: #6fbe5c;
+    --color-primary-400: #81c96f;
+    --color-primary-300: #bbe8ae;
+    --color-primary-200: #d8f2d0;
+    --color-primary-100: #ecf9e8;
+
+    .air-btn--primary {
+        background-image: url('theme/festival/summer/btn-bg.png');
+    }
+}

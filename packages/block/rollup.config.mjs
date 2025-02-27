@@ -1,12 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import alias from '@rollup/plugin-alias';
 import { babel } from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import postcss from 'rollup-plugin-postcss';
-import vue from 'rollup-plugin-vue';
-import tailwindcss from 'tailwindcss';
-import autoprefixer from 'autoprefixer';
-import postcssImport from 'postcss-import';
+import vue from '@vitejs/plugin-vue';
+import tailwindcss from '@tailwindcss/postcss';
 import { createFilter } from 'rollup-pluginutils';
 
 import fs from 'fs-extra';
@@ -21,8 +20,8 @@ const GLOBALS = {
 };
 
 // externals
-const GLOBAL_EXTERNALS = ['vue', '@air-ui/air-element', 'element-plus'];
-const INLINE_EXTERNALS = [/@air-ui\/air-element\/.*/, /element-plus\/.*/];
+const GLOBAL_EXTERNALS = ['vue', 'element-plus'];
+const INLINE_EXTERNALS = [/element-plus\/.*/];
 const EXTERNALS = [...GLOBAL_EXTERNALS, ...INLINE_EXTERNALS];
 
 // alias
@@ -51,7 +50,7 @@ const ALIAS_ENTRIES = [
 // plugins
 const BABEL_PLUGIN_OPTIONS = {
     extensions: ['.js', '.vue'],
-    exclude: 'node_modules/**',
+    exclude: ['node_modules/**', 'dist/**'],
     presets: ['@babel/preset-env', '@babel/preset-typescript'],
     plugins: ['@vue/babel-plugin-jsx'],
     skipPreflightCheck: true,
@@ -64,20 +63,10 @@ const ALIAS_PLUGIN_OPTIONS = {
 };
 
 const POSTCSS_PLUGIN_OPTIONS = {
-    plugins: [postcssImport(), tailwindcss('./tailwind.config.js'), autoprefixer()],
-    extract: 'styles.css',
+    plugins: [tailwindcss()],
+    extract: 'style.css',
     modules: false,
-    minimize: true,
-    sourceMap: true,
-    // 添加以下 preprocessor 选项
-    use: [
-        [
-            'sass',
-            {
-                includePaths: ['node_modules']
-            }
-        ]
-    ]
+    minimize: false,
 };
 
 const TERSER_PLUGIN_OPTIONS = {
@@ -87,7 +76,7 @@ const TERSER_PLUGIN_OPTIONS = {
         reduce_funcs: true // 尝试减少函数的数量，优化代码体积，可能会合并相似的函数。
     },
     mangle: {
-        reserved: ['theme', 'css'] // 在混淆过程中，保留 'theme' 和 'css' 这两个变量名不被重命名，以避免破坏外部依赖或 API。
+        reserved: ['theme', 'css']
     }
 };
 
@@ -177,23 +166,21 @@ const ENTRY = {
     },
     update: {
         packageJson({ input, output, options }) {
-            try {
-                const inputDir = path.resolve(__dirname, path.dirname(input));
-                const outputDir = path.resolve(__dirname, path.dirname(output));
-                const packageJson = path.resolve(outputDir, 'package.json');
+            const inputDir = path.resolve(__dirname, path.dirname(input));
+            const outputDir = path.resolve(__dirname, path.dirname(output));
+            const packageJson = path.resolve(outputDir, 'package.json');
 
-                !fs.existsSync(packageJson) && fs.copySync(path.resolve(inputDir, './package.json'), packageJson);
+            !fs.existsSync(packageJson) && fs.copySync(path.resolve(inputDir, './package.json'), packageJson);
 
-                const pkg = JSON.parse(fs.readFileSync(packageJson, { encoding: 'utf8', flag: 'r' }));
+            const pkg = JSON.parse(fs.readFileSync(packageJson, { encoding: 'utf8', flag: 'r' }));
 
-                !pkg?.main?.includes('.cjs') &&
-                    (pkg.main = path.basename(options?.main) ? `./${path.basename(options.main)}` : pkg.main);
-                pkg.module = path.basename(options?.module) ? `./${path.basename(options.module)}` : packageJson.module;
-                pkg.types && (pkg.types = './index.d.ts');
-                pkg.style = './style.css'; // 添加这行
-
-                fs.writeFileSync(packageJson, JSON.stringify(pkg, null, 4));
-            } catch {}
+            !pkg?.main?.includes('.cjs') &&
+                (pkg.main = path.basename(options?.main) ? `./${path.basename(options.main)}` : pkg.main);
+            pkg.module = path.basename(options?.module) ? `./${path.basename(options.module)}` : packageJson.module;
+            pkg.types && (pkg.types = './index.d.ts');
+            pkg.style = './style.css'; 
+            
+            fs.writeFileSync(packageJson, JSON.stringify(pkg, null, 4));
         }
     }
 };
@@ -233,7 +220,7 @@ function autoImportBlockTheme() {
             if (filter(id)) {
                 // 在每个 Vue 文件的开头插入样式导入
                 return {
-                    code: `import '../theme/index.scss';\n${code}`,
+                    code: `import '../theme/index.css';\n${code}`,
                     map: null
                 };
             }

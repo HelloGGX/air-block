@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --color-white-800: rgba(255, 255, 255, 1);
+  --color-white-700: rgba(255, 255, 255, 0.88);
+  --color-white-600: rgba(255, 255, 255, 0.72);
+  --color-white-500: rgba(255, 255, 255, 0.64);
+  --color-white-400: rgba(255, 255, 255, 0.48);
+  --color-white-300: rgba(255, 255, 255, 0.32);
+  --color-white-200: rgba(255, 255, 255, 0.24);
+  --color-white-100: rgba(255, 255, 255, 0);
+
+  --color-primary-800: #051773;
+  --color-primary-700: #0e2a99;
+  --color-primary-600: #1b41bf;
+  --color-primary-500: #2c5de5;
+  --color-primary-400: #5584f2;
+  --color-primary-300: #82acff;
+  --color-primary-200: #abcaff;
+  --color-primary-100: #edf4ff;
+
+  --color-gray-800: #000000;
+  --color-gray-700: #202532;
+  --color-gray-600: #50545e;
+  --color-gray-500: #838791;
+  --color-gray-400: #bec0c5;
+  --color-gray-300: #d9dadd;
+  --color-gray-200: #eaeaeb;
+  --color-gray-100: #f2f2f3;
+
+  --color-blue-400: #5584f2;
+  --color-blue-200: #abcaff;
+  --color-blue-100: #edf4ff;
+
+  --color-green-400: #33bb53;
+  --color-green-200: #caedd9;
+  --color-green-100: #e9fbf1;
+
+  --color-red-400: #e83f4e;
+  --color-red-200: #ffd6d7;
+  --color-red-100: #ffeff0;
+
+  --color-purple-400: #9c5bfc;
+  --color-purple-200: #e5d5fc;
+  --color-purple-100: #f6f0ff;
+
+  --color-orange-400: #ee843e;
+  --color-orange-200: #ffe1be;
+  --color-orange-100: #fff1e2;
+
+  --font-sans: 'Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-mono: 'Fira Code', 'Cascadia Code', 'Source Code Pro', 'Menlo', 'Consolas', 'Monaco', 'monospace';
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+  --text-8xl: 6rem;
+  --text-9xl: 8rem;
+
+  --radius-none: 0rem;
+  --radius-sm: 0.25rem;
+  --radius-base: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-full: 625rem;
+
+}

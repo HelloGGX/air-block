@@ -1,3 +1,3 @@
-// Card
-export * from './aircard/AirCard.vue';
-export { default as AirCard } from './aircard/AirCard.vue';
+//airstep ------------------------------
+export * from './airstep/AirStep.vue';
+export { default as Airstep } from './airstep/AirStep.vue';

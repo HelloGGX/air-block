@@ -5,11 +5,15 @@ import pluginVue from 'eslint-plugin-vue';
 
 export default [
     { files: ['**/*.{js,mjs,cjs,ts,vue}'] },
-    { languageOptions: { globals: globals.browser } },
+    { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
     pluginJs.configs.recommended,
     ...tseslint.configs.recommended,
     ...pluginVue.configs['flat/essential'],
     { files: ['**/*.vue'], languageOptions: { parserOptions: { parser: tseslint.parser } } },
     { ignores: ['node_modules/', 'packages/**/dist/'] },
-    { node: true }
+    {
+        rules: {
+            '@typescript-eslint/no-empty-object-type': 'off'
+        }
+    }
 ];

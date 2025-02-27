@@ -1,15 +1,13 @@
 {
     "extends": ["@vue/tsconfig/tsconfig.dom.json", "@vue/tsconfig/tsconfig.lib.json"],
     "compilerOptions": {
-        "allowJs": true,
         "skipLibCheck": false,
-        "strict": true,
-        "jsx": "preserve",
         "baseUrl": ".",
         "paths": {
+            "@air-ui/block/*": ["./src/*"],
             "block/*": ["./src/*"]
         }
     },
-    "include": ["**/*.ts", "src/*", "**/*.vue"],
+    "include": ["src/**/*"],
     "exclude": ["node_modules", "dist"]
 }

@@ -1,8 +1,0 @@
-{
-  "main": "./AirCard.vue",
-  "types": "./AirCard.d.ts",
-  "module": "./AirCard.vue",
-  "sideEffects": [
-      "*.vue"
-  ]
-}

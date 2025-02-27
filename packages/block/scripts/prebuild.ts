@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
-import { removeBuild, resolvePath, updatePackageJson } from '../../../scripts/build-helper.mjs';
+import { removeBuild, resolvePath, updatePackageJson } from '../../../scripts/build-helper';
 
 removeBuild(import.meta.url);
 
@@ -11,16 +11,16 @@ const pkg = path.resolve(__root, './package.json');
 updatePackageJson(pkg);
 
 // update package.json > "exports" for local
-let exports = {};
+const exports: Record<string, string> = {};
 
-fs.readdirSync(path.resolve(__root, INPUT_DIR), { withFileTypes: true })
+fs.readdirSync(path.resolve(__root, INPUT_DIR || ''), { withFileTypes: true })
     .filter((dir) => dir.isDirectory())
     .forEach(({ name: folderName }) => {
         const folderPath = path.resolve(__root, INPUT_DIR + folderName);
 
         fs.readdirSync(folderPath).forEach((file) => {
-            let fileName = file.split(/(.vue)$|(.js)$/)[0];
-            let name = fileName.toLowerCase();
+            const fileName = file.split(/(.vue)$|(.js)$/)[0];
+            const name = fileName.toLowerCase();
 
             if (name === folderName) {
                 exports[`./${folderName}`] = `./${INPUT_DIR}${folderName}/${file}`;
