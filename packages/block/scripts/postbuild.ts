@@ -19,7 +19,7 @@ async function handleSingleComponent(componentName: string) {
     if (!INPUT_DIR || !OUTPUT_DIR) return;
 
     const componentInputDir = path.join(INPUT_DIR, componentName);
-    const componentOutputDir = path.join(OUTPUT_DIR, componentName.toLowerCase());
+    const componentOutputDir = path.join(OUTPUT_DIR, componentName);
     const componentInputPath = path.resolve(__dirname, '..', componentInputDir);
     const componentOutputPath = path.resolve(__dirname, '..', componentOutputDir);
 
