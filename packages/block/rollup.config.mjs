@@ -13,6 +13,7 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const COMPONENT_NAME = process.env.COMPONENT_NAME; // 如果用户输入了组件名，则只打包该组件
 
 // globals
 const GLOBALS = {
@@ -66,7 +67,7 @@ const POSTCSS_PLUGIN_OPTIONS = {
     plugins: [tailwindcss()],
     extract: 'style.css',
     modules: false,
-    minimize: false,
+    minimize: false
 };
 
 const TERSER_PLUGIN_OPTIONS = {
@@ -178,14 +179,14 @@ const ENTRY = {
                 (pkg.main = path.basename(options?.main) ? `./${path.basename(options.main)}` : pkg.main);
             pkg.module = path.basename(options?.module) ? `./${path.basename(options.module)}` : packageJson.module;
             pkg.types && (pkg.types = './index.d.ts');
-            pkg.style = './style.css'; 
-            
+            pkg.style = './style.css';
+
             fs.writeFileSync(packageJson, JSON.stringify(pkg, null, 4));
         }
     }
 };
 
-function addFile() {
+function addFiles() {
     fs.readdirSync(path.resolve(__dirname, process.env.INPUT_DIR), { withFileTypes: true })
         .filter((dir) => dir.isDirectory())
         .forEach(({ name: folderName }) => {
@@ -195,11 +196,30 @@ function addFile() {
                 if (name === folderName) {
                     const input = process.env.INPUT_DIR + folderName + '/' + file;
                     const output = process.env.OUTPUT_DIR + folderName + '/index';
-
                     ENTRY.format.es({ input, output });
                 }
             });
         });
+}
+function addFile() {
+    const inputDir = path.resolve(__dirname, process.env.INPUT_DIR);
+    const componentName = COMPONENT_NAME.toLowerCase();
+    const componentPath = path.resolve(inputDir, componentName);
+
+    if (fs.existsSync(componentPath)) {
+        fs.readdirSync(componentPath).forEach((file) => {
+            const name = file.split(/(.vue)$|(.js)$/)[0].toLowerCase();
+
+            if (name === componentName) {
+                const input = path.join(componentPath, file);
+                const output = path.join(process.env.OUTPUT_DIR, componentName, 'index');
+                ENTRY.format.es({ input, output });
+            }
+        });
+    } else {
+        console.error(`组件 ${COMPONENT_NAME} 不存在`);
+        process.exit(1);
+    }
 }
 
 function addLibrary() {
@@ -249,7 +269,15 @@ function autoImportAirElementStyles() {
     };
 }
 
-addFile();
-addLibrary();
+function core() {
+    if (COMPONENT_NAME) {
+        addFile(COMPONENT_NAME);
+    } else {
+        addFiles();
+        addLibrary();
+    }
+}
+
+core();
 
 export default ENTRY.entries;

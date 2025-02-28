@@ -1,8 +1,15 @@
 {
+    "version": "0.0.0",
     "main": "./AirStep.vue",
     "types": "./AirStep.d.ts",
     "module": "./AirStep.vue",
     "sideEffects": [
-        "*.vue"
-    ]
+        "*.vue",
+        "*.css"
+    ],
+    "peerDependencies": {
+        "vue": "^3.3.0",
+        "@element-plus/icons-vue": "^2.3.1",
+        "element-plus": "^2.9.3"
+    }
 }

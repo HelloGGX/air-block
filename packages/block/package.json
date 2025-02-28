@@ -3,11 +3,11 @@
     "version": "0.0.0",
     "scripts": {
         "build": "cross-env NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ pnpm run build:package",
+        "build:one": "cross-env NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ COMPONENT_NAME=$npm_config_name pnpm run build:package:one",
         "build:package": "pnpm run build:prebuild && rollup -c && pnpm run build:postbuild",
+        "build:package:one": "rollup -c && pnpm run build:postbuild",
         "build:prebuild": "tsx ./scripts/prebuild.ts",
-        "build:postbuild": "tsx ./scripts/postbuild.ts",
-        "add:block": "tsx ./scripts/addBlock/add-block.ts",
-        "publish": "tsx ./scripts/publish.ts"
+        "build:postbuild": "tsx ./scripts/postbuild.ts"
     },
     "peerDependencies": {
         "@element-plus/icons-vue": "^2.3.1",
